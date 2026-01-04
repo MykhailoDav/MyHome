@@ -1,10 +1,8 @@
 using System.Globalization;
+using MyHomeApp.Resources.Localization;
 
 namespace MyHomeApp.Converters;
 
-/// <summary>
-/// Converts AppTheme enum to bool for Switch control
-/// </summary>
 public class ThemeToBoolConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
@@ -35,9 +33,9 @@ public class ThemeToTextConverter : IValueConverter
     {
         if (value is AppTheme theme)
         {
-            return theme == AppTheme.Dark ? "Dark Mode" : "Light Mode";
+            return theme == AppTheme.Dark ? AppResources.DarkMode : AppResources.LightMode;
         }
-        return "Light Mode";
+        return AppResources.LightMode;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

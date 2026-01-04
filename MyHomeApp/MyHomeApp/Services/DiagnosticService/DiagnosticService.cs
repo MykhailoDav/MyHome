@@ -3,9 +3,6 @@ using CommunityToolkit.Maui.Core;
 
 namespace MyHomeApp.Services;
 
-/// <summary>
-/// Implementation of diagnostic service for alerts and notifications
-/// </summary>
 public sealed class DiagnosticService : IDiagnosticService
 {
     public Task ShowAlertAsync(string title, string message, string cancel = "OK") => Shell.Current.DisplayAlertAsync(title, message, cancel);

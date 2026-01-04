@@ -5,54 +5,52 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MyHomeApp.Services"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:pages="clr-namespace:MyHomeApp.Views"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     Title="MyHome"
-    x:DataType="local:SettingsService">
-
+    Shell.FlyoutBehavior="Flyout">
     <ShellContent
         Title="{localization:Translate DashboardTitle}"
         ContentTemplate="{DataTemplate pages:DashboardPage}"
-        Icon="{FontImageSource Glyph='🏠',
-                               Size=30}"
         Route="DashboardPage" />
 
-    <!--  Shell Footer with Settings  -->
     <Shell.FlyoutFooter>
         <VerticalStackLayout
+            x:Name="SettingsPanel"
             Padding="20"
+            x:DataType="local:SettingsService"
             BackgroundColor="{toolkit:AppThemeResource Card}"
             Spacing="20">
 
-            <!--  Settings Header  -->
             <Label
                 FontAttributes="Bold"
                 FontSize="18"
                 Text="{localization:Translate Settings}"
                 TextColor="{toolkit:AppThemeResource TextPrimary}" />
 
-            <!--  Theme Switch  -->
-            <HorizontalStackLayout Spacing="12">
+            <VerticalStackLayout Spacing="8">
                 <Label
                     FontSize="16"
-                    HorizontalOptions="Start"
                     Text="{localization:Translate Theme}"
-                    TextColor="{toolkit:AppThemeResource TextPrimary}"
-                    VerticalOptions="Center"
-                    WidthRequest="100" />
-                <Switch
-                    IsToggled="{Binding CurrentTheme, Converter={StaticResource ThemeToBoolConverter}}"
-                    OnColor="{toolkit:AppThemeResource Primary}"
-                    ThumbColor="{StaticResource White}"
-                    VerticalOptions="Center" />
-                <Label
-                    FontSize="14"
-                    Text="{Binding CurrentTheme, Converter={StaticResource ThemeToTextConverter}}"
-                    TextColor="{toolkit:AppThemeResource TextSecondary}"
-                    VerticalOptions="Center" />
-            </HorizontalStackLayout>
+                    TextColor="{toolkit:AppThemeResource TextPrimary}" />
 
-            <!--  Language Picker  -->
+                <HorizontalStackLayout Spacing="20">
+                    <RadioButton
+                        x:Name="LightThemeRadio"
+                        CheckedChanged="OnThemeChanged"
+                        Content="{localization:Translate Light}"
+                        TextColor="{toolkit:AppThemeResource TextPrimary}"
+                        Value="Light" />
+
+                    <RadioButton
+                        x:Name="DarkThemeRadio"
+                        CheckedChanged="OnThemeChanged"
+                        Content="{localization:Translate Dark}"
+                        TextColor="{toolkit:AppThemeResource TextPrimary}"
+                        Value="Dark" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
             <HorizontalStackLayout Spacing="12">
                 <Label
                     FontSize="16"
@@ -61,17 +59,18 @@
                     TextColor="{toolkit:AppThemeResource TextPrimary}"
                     VerticalOptions="Center"
                     WidthRequest="100" />
+
                 <Picker
+                    x:Name="LanguagePicker"
+                    Title="{localization:Translate Language}"
                     BackgroundColor="{toolkit:AppThemeResource Surface}"
                     ItemDisplayBinding="{Binding Name}"
                     ItemsSource="{Binding AvailableLanguages}"
-                    SelectedItem="{Binding SelectedLanguage}"
+                    SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
                     TextColor="{toolkit:AppThemeResource TextPrimary}"
                     VerticalOptions="Center"
                     WidthRequest="150" />
             </HorizontalStackLayout>
-
         </VerticalStackLayout>
     </Shell.FlyoutFooter>
-
 </Shell>

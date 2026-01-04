@@ -13,6 +13,7 @@
 
             <!--  Converters  -->
             <converters:ThemeToBoolConverter x:Key="ThemeToBoolConverter" />
+            <converters:ThemeToBoolConverter x:Key="ThemeToTextConverter" />
         </ResourceDictionary>
     </Application.Resources>
 </Application>

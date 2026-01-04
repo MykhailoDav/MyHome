@@ -2,13 +2,24 @@
 
 public partial class App : Application
 {
-	public static new App Current => (App)Application.Current!;
+    readonly ISettingsService settingsService;
+    public static new App Current => (App)Application.Current!;
 
-	public App()
-	{
-		InitializeComponent();
-	}
+    public App(ISettingsService settingsService)
+    {
+        this.settingsService = settingsService;
+        InitializeComponent();
+    }
 
-	protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell());
+    protected override Window CreateWindow(IActivationState? activationState) => new(new AppShell(settingsService));
 
+    protected override void OnStart()
+    {
+        settingsService.CurrentTheme = AppTheme.Dark;
+    }
+
+    protected override void OnResume()
+    {
+
+    }
 }

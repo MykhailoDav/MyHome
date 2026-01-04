@@ -1,18 +1,14 @@
 namespace MyHomeApp.ViewModels;
 
-/// <summary>
-/// ViewModel for the Dashboard page displaying indoor and outdoor metrics
-/// </summary>
+
 public partial class DashboardViewModel : ObservableObject
 {
-    // Indoor metrics
     [ObservableProperty]
     double indoorTemperature;
 
     [ObservableProperty]
     double indoorHumidity;
 
-    // Outdoor metrics
     [ObservableProperty]
     double outdoorTemperature;
 
@@ -22,7 +18,6 @@ public partial class DashboardViewModel : ObservableObject
     [ObservableProperty]
     double outdoorPressure;
 
-    // Display properties
     [ObservableProperty]
     string indoorTemperatureDisplay = string.Empty;
 
@@ -45,11 +40,9 @@ public partial class DashboardViewModel : ObservableObject
 
     void LoadMockData()
     {
-        // Indoor mock data
         IndoorTemperature = 22.5;
         IndoorHumidity = 45.0;
 
-        // Outdoor mock data
         OutdoorTemperature = 18.3;
         OutdoorHumidity = 62.0;
         OutdoorPressure = 1013.25;

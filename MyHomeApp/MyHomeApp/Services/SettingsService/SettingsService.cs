@@ -2,9 +2,6 @@ using System.Globalization;
 
 namespace MyHomeApp.Services;
 
-/// <summary>
-/// Service for managing application settings like theme and language
-/// </summary>
 public partial class SettingsService : ObservableObject, ISettingsService
 {
     readonly IThemeService themeService;
@@ -27,10 +24,8 @@ public partial class SettingsService : ObservableObject, ISettingsService
         this.themeService = themeService;
         this.localizationService = localizationService;
 
-        // Initialize available languages
         AvailableLanguages = GetAvailableLanguages();
 
-        // Load saved settings or use defaults
         CurrentTheme = LoadTheme();
         CurrentLanguage = LoadLanguage();
 
@@ -61,10 +56,7 @@ public partial class SettingsService : ObservableObject, ISettingsService
         }
     }
 
-    void ApplyTheme(AppTheme theme)
-    {
-        themeService.SetTheme(theme);
-    }
+    void ApplyTheme(AppTheme theme) => themeService.SetTheme(theme);
 
     void ApplyLanguage(string language)
     {
@@ -80,48 +72,22 @@ public partial class SettingsService : ObservableObject, ISettingsService
         CultureInfo.CurrentUICulture = culture;
     }
 
-    AppTheme LoadTheme()
-    {
-        if (Preferences.ContainsKey(AppConstants.PreferencesKeys.Theme))
-        {
-            var themeString = Preferences.Get(AppConstants.PreferencesKeys.Theme, AppConstants.Defaults.Theme.ToString());
-            return Enum.Parse<AppTheme>(themeString);
-        }
-        return AppConstants.Defaults.Theme;
-    }
+    static AppTheme LoadTheme() => Enum.Parse<AppTheme>(Preferences.Get(AppConstants.PreferencesKeys.Theme, AppConstants.Defaults.Theme.ToString()));
 
-    void SaveTheme(AppTheme theme)
-    {
-        Preferences.Set(AppConstants.PreferencesKeys.Theme, theme.ToString());
-    }
+    static void SaveTheme(AppTheme theme) => Preferences.Set(AppConstants.PreferencesKeys.Theme, theme.ToString());
 
-    string LoadLanguage()
-    {
-        return Preferences.Get(AppConstants.PreferencesKeys.Language, AppConstants.Defaults.Language);
-    }
 
-    void SaveLanguage(string language)
-    {
-        Preferences.Set(AppConstants.PreferencesKeys.Language, language);
-    }
+    static string LoadLanguage() => Preferences.Get(AppConstants.PreferencesKeys.Language, AppConstants.Defaults.Language);
 
-    public void ToggleTheme()
-    {
-        CurrentTheme = CurrentTheme == AppTheme.Light ? AppTheme.Dark : AppTheme.Light;
-    }
+    static void SaveLanguage(string language) => Preferences.Set(AppConstants.PreferencesKeys.Language, language);
 
-    public List<LanguageOption> GetAvailableLanguages()
-    {
-        return
+    public void ToggleTheme() => CurrentTheme = CurrentTheme == AppTheme.Light ? AppTheme.Dark : AppTheme.Light;
+
+    public List<LanguageOption> GetAvailableLanguages() =>
         [
             new() { Code = AppConstants.Cultures.English, Name = "English" },
             new() { Code = AppConstants.Cultures.Ukrainian, Name = "Українська" }
         ];
-    }
 }
 
-public class LanguageOption
-{
-    public string Code { get; set; } = string.Empty;
-    public string Name { get; set; } = string.Empty;
-}
+

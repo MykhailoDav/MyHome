@@ -32,6 +32,6 @@ public static class AppConstants
     public static class Defaults
     {
         public const string Language = Cultures.English;
-        public static readonly AppTheme Theme = AppTheme.Light;
+        public static readonly AppTheme Theme = AppTheme.Unspecified;
     }
 }

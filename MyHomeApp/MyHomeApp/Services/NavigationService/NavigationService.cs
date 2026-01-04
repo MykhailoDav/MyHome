@@ -1,8 +1,5 @@
 namespace MyHomeApp.Services;
 
-/// <summary>
-/// Implementation of Shell navigation service
-/// </summary>
 public sealed class NavigationService : INavigationService
 {
     public Task GoToAsync(ShellNavigationState state)
