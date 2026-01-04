@@ -1,7 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using epj.RouteGenerator;
+using Microsoft.Extensions.Logging;
+using CommunityToolkit.Maui;
 
 namespace MyHomeApp;
 
+[AutoRoutes("Page")]
 public static class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
@@ -9,16 +12,18 @@ public static class MauiProgram
 		var builder = MauiApp.CreateBuilder();
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
-			{
-				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-			});
+			.UseMauiCommunityToolkit()
+			.RegisterServices()
+			.RegisterViewModelsAndViews()
+			.ConfigureAppFonts()
+			.ConfigureLocalization()
+			.ConfigureHandlers();
 
 #if DEBUG
 		builder.Logging.AddDebug();
 #endif
 
-		return builder.Build();
+		var app = builder.Build();
+		return app;
 	}
 }

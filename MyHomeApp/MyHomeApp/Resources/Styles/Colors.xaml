@@ -1,44 +1,131 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<ResourceDictionary 
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
 
-    <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
+    <!--  Note: For Android please see also Platforms\Android\Resources\values\colors.xml  -->
 
-    <Color x:Key="Primary">#512BD4</Color>
-    <Color x:Key="PrimaryDark">#ac99ea</Color>
-    <Color x:Key="PrimaryDarkText">#242424</Color>
-    <Color x:Key="Secondary">#DFD8F7</Color>
-    <Color x:Key="SecondaryDarkText">#9880e5</Color>
-    <Color x:Key="Tertiary">#2B0B98</Color>
+    <!--  Modern Green Theme Colors - Light Mode  -->
+    <Color x:Key="PrimaryLight">#2E7D32</Color>
+    <!--  Deep Green  -->
+    <Color x:Key="PrimaryDarkLight">#1B5E20</Color>
+    <!--  Darker Green  -->
+    <Color x:Key="SecondaryLight">#81C784</Color>
+    <!--  Light Green  -->
+    <Color x:Key="TertiaryLight">#A5D6A7</Color>
+    <!--  Pale Green  -->
+    <Color x:Key="AccentLight">#4CAF50</Color>
+    <!--  Vibrant Green  -->
 
+    <!--  Modern Green Theme Colors - Dark Mode  -->
+    <Color x:Key="PrimaryDark">#66BB6A</Color>
+    <!--  Bright Green  -->
+    <Color x:Key="PrimaryDarkDark">#81C784</Color>
+    <!--  Lighter Green  -->
+    <Color x:Key="SecondaryDark">#388E3C</Color>
+    <!--  Medium Green  -->
+    <Color x:Key="TertiaryDark">#2E7D32</Color>
+    <!--  Deep Green  -->
+    <Color x:Key="AccentDark">#4CAF50</Color>
+    <!--  Vibrant Green  -->
+
+    <!--  Background Colors  -->
+    <Color x:Key="BackgroundLight">#FFFFFF</Color>
+    <Color x:Key="BackgroundDark">#121212</Color>
+    <Color x:Key="SurfaceLight">#F5F5F5</Color>
+    <Color x:Key="SurfaceDark">#1E1E1E</Color>
+    <Color x:Key="CardLight">#FFFFFF</Color>
+    <Color x:Key="CardDark">#2C2C2C</Color>
+
+    <!--  Text Colors  -->
+    <Color x:Key="TextPrimaryLight">#212121</Color>
+    <Color x:Key="TextPrimaryDark">#FFFFFF</Color>
+    <Color x:Key="TextSecondaryLight">#757575</Color>
+    <Color x:Key="TextSecondaryDark">#B0B0B0</Color>
+
+    <!--  Standard Colors  -->
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
-    <Color x:Key="Magenta">#D600AA</Color>
-    <Color x:Key="MidnightBlue">#190649</Color>
-    <Color x:Key="OffBlack">#1f1f1f</Color>
 
-    <Color x:Key="Gray100">#E1E1E1</Color>
-    <Color x:Key="Gray200">#C8C8C8</Color>
-    <Color x:Key="Gray300">#ACACAC</Color>
-    <Color x:Key="Gray400">#919191</Color>
-    <Color x:Key="Gray500">#6E6E6E</Color>
-    <Color x:Key="Gray600">#404040</Color>
+    <!--  Gray Scale  -->
+    <Color x:Key="Gray100">#F5F5F5</Color>
+    <Color x:Key="Gray200">#EEEEEE</Color>
+    <Color x:Key="Gray300">#E0E0E0</Color>
+    <Color x:Key="Gray400">#BDBDBD</Color>
+    <Color x:Key="Gray500">#9E9E9E</Color>
+    <Color x:Key="Gray600">#757575</Color>
+    <Color x:Key="Gray700">#616161</Color>
+    <Color x:Key="Gray800">#424242</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
 
-    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
-    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
-    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
-    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
-    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+    <!--  AppTheme-aware Color Resources  -->
+    <toolkit:AppThemeColor
+        x:Key="Primary"
+        Dark="{StaticResource PrimaryDark}"
+        Light="{StaticResource PrimaryLight}" />
+    <toolkit:AppThemeColor
+        x:Key="PrimaryDarkColor"
+        Dark="{StaticResource PrimaryDarkDark}"
+        Light="{StaticResource PrimaryDarkLight}" />
+    <toolkit:AppThemeColor
+        x:Key="Secondary"
+        Dark="{StaticResource SecondaryDark}"
+        Light="{StaticResource SecondaryLight}" />
+    <toolkit:AppThemeColor
+        x:Key="Tertiary"
+        Dark="{StaticResource TertiaryDark}"
+        Light="{StaticResource TertiaryLight}" />
+    <toolkit:AppThemeColor
+        x:Key="Accent"
+        Dark="{StaticResource AccentDark}"
+        Light="{StaticResource AccentLight}" />
 
-    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
-    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
-    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
-    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
-    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
-    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
-    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
-    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+    <toolkit:AppThemeColor
+        x:Key="Background"
+        Dark="{StaticResource BackgroundDark}"
+        Light="{StaticResource BackgroundLight}" />
+    <toolkit:AppThemeColor
+        x:Key="Surface"
+        Dark="{StaticResource SurfaceDark}"
+        Light="{StaticResource SurfaceLight}" />
+    <toolkit:AppThemeColor
+        x:Key="Card"
+        Dark="{StaticResource CardDark}"
+        Light="{StaticResource CardLight}" />
+
+    <toolkit:AppThemeColor
+        x:Key="TextPrimary"
+        Dark="{StaticResource TextPrimaryDark}"
+        Light="{StaticResource TextPrimaryLight}" />
+    <toolkit:AppThemeColor
+        x:Key="TextSecondary"
+        Dark="{StaticResource TextSecondaryDark}"
+        Light="{StaticResource TextSecondaryLight}" />
+
+    <!--  Brushes  -->
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{AppThemeBinding Light={StaticResource PrimaryLight}, Dark={StaticResource PrimaryDark}}" />
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{AppThemeBinding Light={StaticResource SecondaryLight}, Dark={StaticResource SecondaryDark}}" />
+    <SolidColorBrush x:Key="TertiaryBrush" Color="{AppThemeBinding Light={StaticResource TertiaryLight}, Dark={StaticResource TertiaryDark}}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{AppThemeBinding Light={StaticResource AccentLight}, Dark={StaticResource AccentDark}}" />
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{AppThemeBinding Light={StaticResource BackgroundLight}, Dark={StaticResource BackgroundDark}}" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="{AppThemeBinding Light={StaticResource SurfaceLight}, Dark={StaticResource SurfaceDark}}" />
+    <SolidColorBrush x:Key="CardBrush" Color="{AppThemeBinding Light={StaticResource CardLight}, Dark={StaticResource CardDark}}" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{AppThemeBinding Light={StaticResource TextPrimaryLight}, Dark={StaticResource TextPrimaryDark}}" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="{AppThemeBinding Light={StaticResource TextSecondaryLight}, Dark={StaticResource TextSecondaryDark}}" />
+
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}" />
+    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}" />
+
+    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}" />
+    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}" />
+    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}" />
+    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}" />
+    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}" />
+    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}" />
+    <SolidColorBrush x:Key="Gray700Brush" Color="{StaticResource Gray700}" />
+    <SolidColorBrush x:Key="Gray800Brush" Color="{StaticResource Gray800}" />
+    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}" />
+    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}" />
 </ResourceDictionary>

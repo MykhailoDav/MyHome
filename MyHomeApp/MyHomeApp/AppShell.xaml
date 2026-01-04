@@ -3,12 +3,75 @@
     x:Class="MyHomeApp.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MyHomeApp"
-    Title="MyHomeApp">
+    xmlns:local="clr-namespace:MyHomeApp.Services"
+    xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:pages="clr-namespace:MyHomeApp.Views"
+    Title="MyHome"
+    x:DataType="local:SettingsService">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        Title="{localization:Translate DashboardTitle}"
+        ContentTemplate="{DataTemplate pages:DashboardPage}"
+        Icon="{FontImageSource Glyph='🏠',
+                               Size=30}"
+        Route="DashboardPage" />
+
+    <!--  Shell Footer with Settings  -->
+    <Shell.FlyoutFooter>
+        <VerticalStackLayout
+            Padding="20"
+            BackgroundColor="{toolkit:AppThemeResource Card}"
+            Spacing="20">
+
+            <!--  Settings Header  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="18"
+                Text="{localization:Translate Settings}"
+                TextColor="{toolkit:AppThemeResource TextPrimary}" />
+
+            <!--  Theme Switch  -->
+            <HorizontalStackLayout Spacing="12">
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    Text="{localization:Translate Theme}"
+                    TextColor="{toolkit:AppThemeResource TextPrimary}"
+                    VerticalOptions="Center"
+                    WidthRequest="100" />
+                <Switch
+                    IsToggled="{Binding CurrentTheme, Converter={StaticResource ThemeToBoolConverter}}"
+                    OnColor="{toolkit:AppThemeResource Primary}"
+                    ThumbColor="{StaticResource White}"
+                    VerticalOptions="Center" />
+                <Label
+                    FontSize="14"
+                    Text="{Binding CurrentTheme, Converter={StaticResource ThemeToTextConverter}}"
+                    TextColor="{toolkit:AppThemeResource TextSecondary}"
+                    VerticalOptions="Center" />
+            </HorizontalStackLayout>
+
+            <!--  Language Picker  -->
+            <HorizontalStackLayout Spacing="12">
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    Text="{localization:Translate Language}"
+                    TextColor="{toolkit:AppThemeResource TextPrimary}"
+                    VerticalOptions="Center"
+                    WidthRequest="100" />
+                <Picker
+                    BackgroundColor="{toolkit:AppThemeResource Surface}"
+                    ItemDisplayBinding="{Binding Name}"
+                    ItemsSource="{Binding AvailableLanguages}"
+                    SelectedItem="{Binding SelectedLanguage}"
+                    TextColor="{toolkit:AppThemeResource TextPrimary}"
+                    VerticalOptions="Center"
+                    WidthRequest="150" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </Shell.FlyoutFooter>
 
 </Shell>
