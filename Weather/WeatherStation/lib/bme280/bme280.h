@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "driver/i2c.h"
 
 typedef struct {
     i2c_port_t i2c_port;

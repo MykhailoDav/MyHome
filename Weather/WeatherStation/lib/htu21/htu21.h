@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
 // Simple AVR-like I2C API (implemented on top of ESP-IDF I2C).
 // This provides compatibility with AVR-style libs (I2C_Init, I2C_Write, etc.)

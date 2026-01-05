@@ -39,16 +39,16 @@ void app_main(void) {
 	uint8_t bme_addr = 0x76;
 	uint8_t htu_addr = 0x40;
 
-	bool bme_ok = bme280_init(&outdoor, I2C_PORT, bme_addr);
-	bool htu_ok = htu21_init(&indoor, I2C_PORT, htu_addr);
+	bme280_init(&outdoor, I2C_PORT, bme_addr);
+	htu21_init(&indoor, htu_addr);
 
 	while (1) {
 		if (!outdoor.present) {
 			// try to (re)initialize
-			bme_ok = bme280_init(&outdoor, I2C_PORT, bme_addr);
+			bme280_init(&outdoor, I2C_PORT, bme_addr);
 		}
 		if (!indoor.present) {
-			htu_ok = htu21_init(&indoor, I2C_PORT, htu_addr);
+			htu21_init(&indoor, htu_addr);
 		}
 
 		float t_out = 0, p_out = 0, h_out = 0;
