@@ -15,7 +15,7 @@ public partial class App : Application
 
     protected override void OnStart()
     {
-        settingsService.CurrentTheme = AppTheme.Dark;
+
     }
 
     protected override void OnResume()

@@ -3,34 +3,14 @@ using MyHomeApp.Resources.Localization;
 
 namespace MyHomeApp;
 
-/// <summary>
-/// Extension methods for organizing application registration
-/// </summary>
 public static class Registration
 {
-    /// <summary>
-    /// Registers all ViewModels and Views with their routes
-    /// </summary>
-    /// <param name="builder">The MAUI app builder</param>
-    /// <returns>The builder for method chaining</returns>
     public static MauiAppBuilder RegisterViewModelsAndViews(this MauiAppBuilder builder)
     {
-        // Register Dashboard (main page)
         builder.Services.AddTransientWithShellRoute<DashboardPage, DashboardViewModel>(Routes.DashboardPage);
-
-        // Add more views here as the app grows
-        // Example:
-        // builder.Services.AddTransientWithShellRoute<SettingsPage, SettingsViewModel>(
-        //     AppConstants.Routes.Settings);
-
         return builder;
     }
 
-    /// <summary>
-    /// Registers all application services
-    /// </summary>
-    /// <param name="builder">The MAUI app builder</param>
-    /// <returns>The builder for method chaining</returns>
     public static MauiAppBuilder RegisterServices(this MauiAppBuilder builder)
     {
         // Register MAUI Essentials services as singletons
@@ -47,17 +27,9 @@ public static class Registration
         builder.Services.AddSingleton<IDiagnosticService, DiagnosticService>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
 
-        // Register Shell
-        builder.Services.AddSingleton<AppShell>();
-
         return builder;
     }
 
-    /// <summary>
-    /// Configures fonts for the application
-    /// </summary>
-    /// <param name="builder">The MAUI app builder</param>
-    /// <returns>The builder for method chaining</returns>
     public static MauiAppBuilder ConfigureAppFonts(this MauiAppBuilder builder)
     {
         builder.ConfigureFonts(fonts =>
@@ -69,11 +41,6 @@ public static class Registration
         return builder;
     }
 
-    /// <summary>
-    /// Configures localization for the application
-    /// </summary>
-    /// <param name="builder">The MAUI app builder</param>
-    /// <returns>The builder for method chaining</returns>
     public static MauiAppBuilder ConfigureLocalization(this MauiAppBuilder builder)
     {
         builder.UseLocalizationResourceManager(settings =>
@@ -85,11 +52,6 @@ public static class Registration
         return builder;
     }
 
-    /// <summary>
-    /// Configures MAUI handlers customization
-    /// </summary>
-    /// <param name="builder">The MAUI app builder</param>
-    /// <returns>The builder for method chaining</returns>
     public static MauiAppBuilder ConfigureHandlers(this MauiAppBuilder builder)
     {
         builder.ConfigureMauiHandlers(handlers =>

@@ -3,12 +3,16 @@
     x:Class="MyHomeApp.Views.DashboardPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:vm="clr-namespace:MyHomeApp.ViewModels"
     xmlns:localization="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:MyHomeApp.ViewModels"
     Title="{localization:Translate DashboardTitle}"
     x:DataType="vm:DashboardViewModel"
     BackgroundColor="{toolkit:AppThemeResource Background}">
+
+    <ContentPage.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{toolkit:AppThemeResource Background}" />
+    </ContentPage.Behaviors>
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="24">

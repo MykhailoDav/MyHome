@@ -11,10 +11,7 @@ public partial class SettingsService : ObservableObject, ISettingsService
     AppTheme currentTheme;
 
     [ObservableProperty]
-    string currentLanguage;
-
-    [ObservableProperty]
-    LanguageOption? selectedLanguage;
+    LanguageOption? currentLanguage;
 
     [ObservableProperty]
     List<LanguageOption> availableLanguages;
@@ -25,15 +22,30 @@ public partial class SettingsService : ObservableObject, ISettingsService
         this.localizationService = localizationService;
 
         AvailableLanguages = GetAvailableLanguages();
+       CurrentTheme = LoadTheme();
 
-        CurrentTheme = LoadTheme();
-        CurrentLanguage = LoadLanguage();
+        string? codeToUse = LoadLanguage();
 
-        // Set selected language
-        SelectedLanguage = AvailableLanguages.FirstOrDefault(l => l.Code == CurrentLanguage);
+        if (string.IsNullOrEmpty(codeToUse))
+        {
+            string systemCode = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
+
+            if (AvailableLanguages.Any(l => l.Code == systemCode))
+            {
+                codeToUse = systemCode;
+            }
+            else
+            {
+                codeToUse = AppConstants.Defaults.Language;
+            }
+        }
+
+        CurrentLanguage = AvailableLanguages.FirstOrDefault(l => l.Code == codeToUse)
+                          ?? AvailableLanguages.First();
 
         ApplyTheme(CurrentTheme);
         ApplyLanguage(CurrentLanguage);
+        SaveLanguage(CurrentLanguage);
     }
 
     partial void OnCurrentThemeChanged(AppTheme value)
@@ -42,25 +54,22 @@ public partial class SettingsService : ObservableObject, ISettingsService
         SaveTheme(value);
     }
 
-    partial void OnCurrentLanguageChanged(string value)
+    partial void OnCurrentLanguageChanged(LanguageOption? oldValue, LanguageOption? newValue)
     {
-        ApplyLanguage(value);
-        SaveLanguage(value);
-    }
-
-    partial void OnSelectedLanguageChanged(LanguageOption? value)
-    {
-        if (value != null && value.Code != CurrentLanguage)
+        if (newValue is not null && newValue.Code != oldValue?.Code)
         {
-            CurrentLanguage = value.Code;
+            ApplyLanguage(newValue);
+            SaveLanguage(newValue);
         }
     }
 
     void ApplyTheme(AppTheme theme) => themeService.SetTheme(theme);
 
-    void ApplyLanguage(string language)
+    void ApplyLanguage(LanguageOption language)
     {
-        var culture = language switch
+        if (language is null) return;
+
+        var culture = language.Code switch
         {
             AppConstants.Cultures.Ukrainian => new CultureInfo(AppConstants.Cultures.UkrainianFull),
             AppConstants.Cultures.English => new CultureInfo(AppConstants.Cultures.EnglishFull),
@@ -76,10 +85,9 @@ public partial class SettingsService : ObservableObject, ISettingsService
 
     static void SaveTheme(AppTheme theme) => Preferences.Set(AppConstants.PreferencesKeys.Theme, theme.ToString());
 
+    static string? LoadLanguage() => Preferences.Get(AppConstants.PreferencesKeys.Language, null);
 
-    static string LoadLanguage() => Preferences.Get(AppConstants.PreferencesKeys.Language, AppConstants.Defaults.Language);
-
-    static void SaveLanguage(string language) => Preferences.Set(AppConstants.PreferencesKeys.Language, language);
+    static void SaveLanguage(LanguageOption language) => Preferences.Set(AppConstants.PreferencesKeys.Language, language.Code);
 
     public void ToggleTheme() => CurrentTheme = CurrentTheme == AppTheme.Light ? AppTheme.Dark : AppTheme.Light;
 
@@ -89,5 +97,3 @@ public partial class SettingsService : ObservableObject, ISettingsService
             new() { Code = AppConstants.Cultures.Ukrainian, Name = "Українська" }
         ];
 }
-
-
