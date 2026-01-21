@@ -232,12 +232,17 @@ static void publish_sensor_data(void) {
     
     if (have_out) {
         snprintf(json_buffer, sizeof(json_buffer),
-                 "{\"temperature\":%.2f,\"pressure\":%.1f,\"humidity\":%.2f,\"timestamp\":%lld}",
+                 "{\"temperature\":%.2f,\"pressure\":%.1f,\"humidity\":%.2f,\"timestamp\":%lld,\"status\":\"ok\"}",
                  t_out, p_out, h_out, (long long)timestamp);
         
         int msg_id = esp_mqtt_client_publish(mqtt_client, MQTT_TOPIC_OUTDOOR, json_buffer, 0, 1, 0);
         ESP_LOGI(TAG, "Published outdoor data, msg_id=%d: %s", msg_id, json_buffer);
     } else {
+        // Publish error status
+        snprintf(json_buffer, sizeof(json_buffer),
+                 "{\"timestamp\":%lld,\"status\":\"error\",\"message\":\"Sensor not available\"}",
+                 (long long)timestamp);
+        esp_mqtt_client_publish(mqtt_client, MQTT_TOPIC_OUTDOOR, json_buffer, 0, 1, 0);
         ESP_LOGW(TAG, "OUTDOOR sensor not available");
     }
     
@@ -247,12 +252,17 @@ static void publish_sensor_data(void) {
     
     if (have_in) {
         snprintf(json_buffer, sizeof(json_buffer),
-                 "{\"temperature\":%.2f,\"humidity\":%.2f,\"timestamp\":%lld}",
+                 "{\"temperature\":%.2f,\"humidity\":%.2f,\"timestamp\":%lld,\"status\":\"ok\"}",
                  t_in, h_in, (long long)timestamp);
         
         int msg_id = esp_mqtt_client_publish(mqtt_client, MQTT_TOPIC_INDOOR, json_buffer, 0, 1, 0);
         ESP_LOGI(TAG, "Published indoor data, msg_id=%d: %s", msg_id, json_buffer);
     } else {
+        // Publish error status
+        snprintf(json_buffer, sizeof(json_buffer),
+                 "{\"timestamp\":%lld,\"status\":\"error\",\"message\":\"Sensor not available\"}",
+                 (long long)timestamp);
+        esp_mqtt_client_publish(mqtt_client, MQTT_TOPIC_INDOOR, json_buffer, 0, 1, 0);
         ESP_LOGW(TAG, "INDOOR sensor not available");
     }
 }

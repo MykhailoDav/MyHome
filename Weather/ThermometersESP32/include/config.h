@@ -2,14 +2,14 @@
 #define CONFIG_H
 
 // WiFi credentials
-#define WIFI_SSID "Triyzi_5"
+#define WIFI_SSID "Your_WiFi_SSID"
 #define WIFI_PASSWORD "best_password"
 
 // HiveMQ Cloud credentials
 #define MQTT_BROKER_URL "0a2cbb2a55b94edca77b664f403a756a.s1.eu.hivemq.cloud"
 #define MQTT_PORT 8883
 #define MQTT_USERNAME "admin"
-#define MQTT_PASSWORD "Mike15975321"
+#define MQTT_PASSWORD "Your_MQTT_Password"
 
 // MQTT Topics
 #define MQTT_TOPIC_OUTDOOR "weather/outdoor"
