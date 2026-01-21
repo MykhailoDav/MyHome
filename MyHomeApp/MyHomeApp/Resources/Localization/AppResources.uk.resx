@@ -162,4 +162,34 @@
   <data name="Dark" xml:space="preserve">
     <value>Темна</value>
   </data>
+  <data name="ConnectionStatus" xml:space="preserve">
+    <value>Статус підключення</value>
+  </data>
+  <data name="Reconnect" xml:space="preserve">
+    <value>Перепідключити</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Оновити</value>
+  </data>
+  <data name="Connected" xml:space="preserve">
+    <value>Підключено</value>
+  </data>
+  <data name="Disconnected" xml:space="preserve">
+    <value>Відключено</value>
+  </data>
+  <data name="Connecting" xml:space="preserve">
+    <value>Підключення...</value>
+  </data>
+  <data name="Reconnecting" xml:space="preserve">
+    <value>Перепідключення...</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Оновлено</value>
+  </data>
+  <data name="Never" xml:space="preserve">
+    <value>Ніколи</value>
+  </data>
 </root>

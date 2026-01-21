@@ -26,6 +26,7 @@ public static class Registration
         builder.Services.AddSingleton<INavigationService, NavigationService>();
         builder.Services.AddSingleton<IDiagnosticService, DiagnosticService>();
         builder.Services.AddSingleton<ISettingsService, SettingsService>();
+        builder.Services.AddSingleton<IWeatherMqttService, WeatherMqttService>();
 
         return builder;
     }

@@ -43,3 +43,25 @@ public class ThemeToTextConverter : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+/// <summary>
+/// Converts error state to color - returns red for error, normal color otherwise
+/// </summary>
+public class ErrorToColorConverter : IMultiValueConverter
+{
+    public object? Convert(object?[] values, Type targetType, object? parameter, CultureInfo culture)
+    {
+        if (values.Length < 2)
+            return Colors.Gray;
+
+        bool hasError = values[0] is bool error && error;
+        Color normalColor = values[1] as Color ?? Colors.Gray;
+
+        return hasError ? Color.FromArgb("#C62828") : normalColor;
+    }
+
+    public object?[] ConvertBack(object? value, Type[] targetTypes, object? parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}

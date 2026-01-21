@@ -17,13 +17,41 @@
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="24">
 
-            <!--  Page Title  -->
-            <Label
-                Margin="0,10,0,20"
-                FontAttributes="Bold"
-                FontSize="32"
-                Text="{localization:Translate DashboardTitle}"
-                TextColor="{toolkit:AppThemeResource TextPrimary}" />
+            <!--  Connection Status Card  -->
+            <Border
+                Padding="0"
+                BackgroundColor="{toolkit:AppThemeResource Primary}"
+                StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+                <VerticalStackLayout Padding="16, 10" Spacing="4">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="16"
+                        Text="{localization:Translate ConnectionStatus}"
+                        TextColor="White" />
+                    <Label
+                        FontSize="14"
+                        Text="{Binding ConnectionStatus}"
+                        TextColor="White" />
+                    
+                    <HorizontalStackLayout Spacing="10" Margin="0,8,0,0">
+                        <Button
+                            BackgroundColor="{toolkit:AppThemeResource Secondary}"
+                            Command="{Binding ReconnectCommand}"
+                            Text="{localization:Translate Reconnect}"
+                            TextColor="White"
+                             />
+                        <Button
+                            BackgroundColor="{toolkit:AppThemeResource Accent}"
+                            Command="{Binding RefreshCommand}"
+                            Text="{localization:Translate Refresh}"
+                            TextColor="White"
+                            WidthRequest="120" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
 
             <!--  Indoor Card  -->
             <Border
@@ -41,14 +69,14 @@
                         Offset="0,4" />
                 </Border.Shadow>
 
-                <VerticalStackLayout Padding="24" Spacing="16">
+                <VerticalStackLayout Padding="24" Spacing="12">
                     <!--  Card Header  -->
                     <HorizontalStackLayout Spacing="12">
                         <Border
                             BackgroundColor="{toolkit:AppThemeResource Primary}"
-                            HeightRequest="48"
+                            HeightRequest="45"
                             StrokeThickness="0"
-                            WidthRequest="48">
+                            WidthRequest="45">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="12" />
                             </Border.StrokeShape>
@@ -61,11 +89,33 @@
 
                         <Label
                             FontAttributes="Bold"
-                            FontSize="24"
+                            FontSize="20"
                             Text="{localization:Translate Indoor}"
                             TextColor="{toolkit:AppThemeResource TextPrimary}"
                             VerticalOptions="Center" />
                     </HorizontalStackLayout>
+
+                    <!--  Error Alert  -->
+                    <Border 
+                        Padding="12"
+                        BackgroundColor="#FFEBEE"
+                        IsVisible="{Binding IndoorHasError}"
+                        StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <HorizontalStackLayout Spacing="8">
+                            <Label 
+                                Text="⚠️" 
+                                FontSize="18"
+                                VerticalOptions="Center"/>
+                            <Label 
+                                Text="{Binding IndoorErrorMessage}"
+                                TextColor="#C62828"
+                                FontSize="14"
+                                VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Border>
 
                     <!--  Divider  -->
                     <BoxView
@@ -92,8 +142,16 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="28"
-                                Text="{Binding IndoorTemperatureDisplay}"
-                                TextColor="{toolkit:AppThemeResource Primary}" />
+                                Text="{Binding IndoorTemperatureDisplay}">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IndoorHasError}" Value="True">
+                                        <Setter Property="TextColor" Value="#C62828"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IndoorHasError}" Value="False">
+                                        <Setter Property="TextColor" Value="{toolkit:AppThemeResource Primary}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
                         </VerticalStackLayout>
 
                         <!--  Humidity  -->
@@ -108,11 +166,27 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="28"
-                                Text="{Binding IndoorHumidityDisplay}"
-                                TextColor="{toolkit:AppThemeResource Accent}" />
+                                Text="{Binding IndoorHumidityDisplay}">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IndoorHasError}" Value="True">
+                                        <Setter Property="TextColor" Value="#C62828"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding IndoorHasError}" Value="False">
+                                        <Setter Property="TextColor" Value="{toolkit:AppThemeResource Accent}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
                         </VerticalStackLayout>
 
                     </Grid>
+
+                    <!--  Last Update  -->
+                    <Label
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        Opacity="0.7"
+                        Text="{Binding IndoorLastUpdate}"
+                        TextColor="{toolkit:AppThemeResource TextSecondary}" />
                 </VerticalStackLayout>
             </Border>
 
@@ -132,14 +206,14 @@
                         Offset="0,4" />
                 </Border.Shadow>
 
-                <VerticalStackLayout Padding="24" Spacing="16">
+                <VerticalStackLayout Padding="24" Spacing="12">
                     <!--  Card Header  -->
                     <HorizontalStackLayout Spacing="12">
                         <Border
                             BackgroundColor="{toolkit:AppThemeResource Secondary}"
-                            HeightRequest="48"
+                            HeightRequest="45"
                             StrokeThickness="0"
-                            WidthRequest="48">
+                            WidthRequest="45">
                             <Border.StrokeShape>
                                 <RoundRectangle CornerRadius="12" />
                             </Border.StrokeShape>
@@ -152,11 +226,33 @@
 
                         <Label
                             FontAttributes="Bold"
-                            FontSize="24"
+                            FontSize="20"
                             Text="{localization:Translate Outdoor}"
                             TextColor="{toolkit:AppThemeResource TextPrimary}"
                             VerticalOptions="Center" />
                     </HorizontalStackLayout>
+
+                    <!--  Error Alert  -->
+                    <Border 
+                        Padding="12"
+                        BackgroundColor="#FFEBEE"
+                        IsVisible="{Binding OutdoorHasError}"
+                        StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8" />
+                        </Border.StrokeShape>
+                        <HorizontalStackLayout Spacing="8">
+                            <Label 
+                                Text="⚠️" 
+                                FontSize="18"
+                                VerticalOptions="Center"/>
+                            <Label 
+                                Text="{Binding OutdoorErrorMessage}"
+                                TextColor="#C62828"
+                                FontSize="14"
+                                VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+                    </Border>
 
                     <!--  Divider  -->
                     <BoxView
@@ -183,8 +279,16 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="28"
-                                Text="{Binding OutdoorTemperatureDisplay}"
-                                TextColor="{toolkit:AppThemeResource Primary}" />
+                                Text="{Binding OutdoorTemperatureDisplay}">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding OutdoorHasError}" Value="True">
+                                        <Setter Property="TextColor" Value="#C62828"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding OutdoorHasError}" Value="False">
+                                        <Setter Property="TextColor" Value="{toolkit:AppThemeResource Primary}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
                         </VerticalStackLayout>
 
                         <!--  Humidity  -->
@@ -199,8 +303,16 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="28"
-                                Text="{Binding OutdoorHumidityDisplay}"
-                                TextColor="{toolkit:AppThemeResource Accent}" />
+                                Text="{Binding OutdoorHumidityDisplay}">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding OutdoorHasError}" Value="True">
+                                        <Setter Property="TextColor" Value="#C62828"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding OutdoorHasError}" Value="False">
+                                        <Setter Property="TextColor" Value="{toolkit:AppThemeResource Accent}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
                         </VerticalStackLayout>
 
                         <!--  Atmospheric Pressure (Full Width)  -->
@@ -216,11 +328,27 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="28"
-                                Text="{Binding OutdoorPressureDisplay}"
-                                TextColor="{toolkit:AppThemeResource Tertiary}" />
+                                Text="{Binding OutdoorPressureDisplay}">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label" Binding="{Binding OutdoorHasError}" Value="True">
+                                        <Setter Property="TextColor" Value="#C62828"/>
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label" Binding="{Binding OutdoorHasError}" Value="False">
+                                        <Setter Property="TextColor" Value="{toolkit:AppThemeResource Tertiary}"/>
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
                         </VerticalStackLayout>
 
                     </Grid>
+
+                    <!--  Last Update  -->
+                    <Label
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        Opacity="0.7"
+                        Text="{Binding OutdoorLastUpdate}"
+                        TextColor="{toolkit:AppThemeResource TextSecondary}" />
                 </VerticalStackLayout>
             </Border>
 
